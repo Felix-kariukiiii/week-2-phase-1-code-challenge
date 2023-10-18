@@ -1,0 +1,17 @@
+body{
+    background-color: beige;
+    padding: 30px;
+
+}
+
+animal-list{
+    color:beige;
+    font-size: medium;
+
+}
+    
+animal-details{
+    background-color: black;
+    padding: 10px;
+    display: flex;
+}
