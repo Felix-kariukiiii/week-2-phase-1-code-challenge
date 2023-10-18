@@ -1,82 +1,64 @@
-const characters = [
-    {
-      id: 1,
-      name: "Mr. Cute",
-      image:"https://th.bing.com/th/id/OIP.0BedXR-WWm4p_o2xZfHS5wHaEK?pid=ImgDet&rs=1",
-      votes: 0,
-    },
-    {
-        "id": 2,
-        "name": "Mx. Monkey",
-        "image":"https://th.bing.com/th/id/OIP._lYxAOn-jTyXGKIW0CrDagHaFF?pid=ImgDet&rs=1" ,
-        "votes": 0
-      },
-      {
-        "id": 3,
-        "name": "Ms. Zebra",
-        "image": "https://media2.giphy.com/media/20G9uNqE3K4dRjCppA/source.gif",
-        "votes": 0
-      },
-      {
-        "id": 4,
-        "name": "Dr. Lion",
-        "image": "http://bestanimations.com/Animals/Mammals/Cats/Lions/animated-lion-gif-11.gif",
-        "votes": 0
-      },
-      {
-        "id": 5,
-        "name": "Mme. Panda",
-        "image": "https://media.giphy.com/media/ALalVMOVR8Qw/giphy.gif",
-        "votes": 0
-      }
-    ];
-  
-  // Variables to keep track of the selected character and elements
-  let selectedCharacter = null;
-  const characterList = document.getElementById("animal-list");
-  const characterDetails = document.getElementById("animal-details");
-  
-  // Function to display the details of a character
-  function showCharacterDetails(character) {
-    characterDetails.innerHTML = `
-      <h2>Animal Details</h2>
-      <img src="${character.image}" alt="${character.name}">
-      <h3>${character.name}</h3>
-      <p>Votes: <span id="votes-count">${character.votes}</span></p>
-      <button id="vote-button">Vote for ${character.name}</button>
-    `;
-  
-    // Event listener for voting
-    const voteButton = document.getElementById("vote-button");
-    voteButton.addEventListener("click", () => {
-      character.votes += 1;
-      const votesCount = document.getElementById("votes-count");
-      votesCount.textContent = character.votes;
+fetch("http://localhost:3000/characters")
+  .then(res => res.json())
+  .then(data => displayAnimalList(data))
+  .catch(error => console.log(error));
+
+const animalList = document.getElementById('animal-list');
+const animalDetails = document.getElementById('animal-details');
+const resetButton = document.getElementById('reset-button');
+
+// Function to display the list of animal names
+function displayAnimalList(data) {
+  animalList.innerHTML = '';
+  data.forEach(animal => {
+    const animalName = document.createElement('div');
+    animalName.textContent = animal.name;
+    animalName.classList.add('animal-name');
+
+    animalName.addEventListener('click', () => {
+      displayAnimalDetails(animal);
     });
-  }
-  
-  // Function to populate the animal list
-  function populateAnimalList(characters) {
-    characterList.innerHTML = "";
-    characters.forEach((character) => {
-      const li = document.createElement("li");
-      li.textContent = character.name;
-      li.dataset.id = character.id;
-      characterList.appendChild(li);
-  
-      // Event listener for clicking on a character in the list
-      li.addEventListener("click", () => {
-        selectedCharacter = character;
-        showCharacterDetails(selectedCharacter);
-      });
-    });
-  }
-  
-  // Initial display (all characters in the list)
-  populateAnimalList(characters);
-  
-  // Display details for the first character initially
-  if (characters.length > 0) {
-    selectedCharacter = characters[0];
-    showCharacterDetails(selectedCharacter);
-  }
+
+    animalList.appendChild(animalName);
+  });
+}
+
+// Function to display the details of a selected animal
+function displayAnimalDetails(animal) {
+  animalDetails.innerHTML = '';
+  const animalName = document.createElement('h2');
+  animalName.textContent = animal.name;
+
+  const animalImage = document.createElement('img');
+  animalImage.src = animal.image;
+
+  const voteCount = document.createElement('p');
+  voteCount.textContent = `Votes: ${animal.votes}`;
+
+  const voteButton = document.createElement('button');
+  voteButton.textContent = 'Vote';
+  voteButton.addEventListener('click', () => {
+    animal.votes++;
+    voteCount.textContent = `Votes: ${animal.votes}`;
+  });
+
+  animalDetails.appendChild(animalName);
+  animalDetails.appendChild(animalImage);
+  animalDetails.appendChild(voteCount);
+  animalDetails.appendChild(voteButton);
+}
+
+// Function to reset all votes to 0
+resetButton.addEventListener('click', () => {
+  data.forEach(animal => {
+    animal.votes = 0;
+  });
+  displayAnimalList(data);
+  animalDetails.innerHTML = '';
+});
+
+// You may need to define 'data' somewhere, possibly outside of the fetch block.
+let data;
+
+// Initial display
+displayAnimalList(data);

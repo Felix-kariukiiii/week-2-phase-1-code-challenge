@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Flatacuties - Vote for the Cutest Animal</title>
+    <title>Animal Voting App</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-    <h1>Animal List</h1>
-    <ul id="animal-list">
-        <!-- Animal names will be populated here -->
-    </ul>
-    <div id="animal-details">
-        <!-- Animal details will be displayed here -->
-        <h2>Animal Details</h2>
-        <img id="animal-image" src="" alt="Animal Image">
-        <h3 id="animal-name"></h3>
-        <p>Votes: <span id="animal-votes">0</span></p>
-        <button id="vote-button">Vote</button>
+    <h1>Animal Voting App</h1>
+    <div class="container">
+        <div id="animal-list" class="animal-list">
+            <!-- Animal names will be displayed here -->
+        </div>
+        <div id="animal-details" class="animal-details">
+            <!-- Animal details will be displayed here -->
+            <div id="animal details">
+                <h2>Animal Details</h2>
+                <img id="animal-image" src="" alt="Animal Image">
+                <h3 id="animal-name"></h3>
+                <p>Votes: <span id= "animal-votes">0</span></p>
+                <button id="vote-button">Votes</button>
+            </div>
+        </div>
     </div>
-    <h2>Add New Animal</h2>
-    <form id="add-animal-form">
-        <label for="new-animal-name">Name:</label>
-        <input type="text" id="new-animal-name" required>
-        <label for="new-animal-image">Image URL:</label>
-        <input type="text" id="new-animal-image" required>
-        <button type="submit">Add</button>
-    </form>
-   <script src="index.js"></script> 
+
+    <script src="index.js"></script> <!-- Include the JavaScript file -->
 </body>
 </html>
